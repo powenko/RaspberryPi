@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 import time
 
 
-# 定義 GPIO to LCD mapping
+# Define GPIO to LCD mapping
 LCD_RS = 7
 LCD_E  = 8
 LCD_D4 = 25

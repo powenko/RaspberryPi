@@ -10,23 +10,18 @@ WEATHER_NS = 'http://xml.weather.yahoo.com/ns/rss/1.0'
 def weather_for_zip(zip_code):
     url = WEATHER_URL % zip_code
     dom = minidom.parse(urllib.urlopen(url))
-    forecasts = []
+    forecasts = ""
     for node in dom.getElementsByTagNameNS(WEATHER_NS, 'forecast'):
         forecasts.append({
-                         'date': node.getAttribute('date'),
-                         'low': node.getAttribute('low'),
-                         'high': node.getAttribute('high'),
-                         'condition': node.getAttribute('text')
+                         'L': node.getAttribute('low'),
+                         'H': node.getAttribute('high')
                          })
     ycondition = dom.getElementsByTagNameNS(WEATHER_NS, 'condition')[0]
     return {
-        'current_condition': ycondition.getAttribute('text'),
-        'current_temp': ycondition.getAttribute('temp'),
-        'forecasts': forecasts,
-        'title': dom.getElementsByTagName('title')[0].firstChild.data
-}
-
-
+        'Now': ycondition.getAttribute('text'),
+        'C': ycondition.getAttribute('temp'),
+        'forecasts': forecasts
+    }
 zipcode=2436704
 if(len(sys.argv)>0):
     zipcode=sys.argv[1]
